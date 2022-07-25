@@ -1,0 +1,247 @@
+@media (max-width: 740px){
+    .header{
+        height: 175px;
+    }
+
+    .header__navbar{
+        display: flex;
+    }
+
+    .header-with__search{
+        display: flex;
+    }
+
+    .header__logo{
+        flex: 1;
+    }
+
+    .header__logo-name{
+        font-size: 1.6rem;
+    }
+    .header__search{
+        flex: 3;
+    }
+
+    .header__cart{
+        flex: 1;
+    }
+
+    .header__search-btn{
+        width: 20px;
+    }
+
+    .container__product-header{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .container__product-list{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .container__product-items{
+        margin-bottom: 20px;
+    }
+
+    .col-full{
+        width: 100%;
+    }
+
+    .container__product-item{
+        display: flex;
+    }
+    .container__product-link{
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Register */
+
+    .register__header{
+        margin: 20px 5px 10px 10px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .register__header-logo{
+        margin-bottom: 10px;
+    }
+
+    .register__header-help-text{
+        display: flex;
+        justify-content: end;
+    }
+
+    .register__body{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .register__body-logo{
+        display: flex;
+        margin: 80px 80px 20px 80px;
+    }
+
+    .register__body-logo-sub{
+        text-align: center;
+    }
+
+    .register__body-forms{
+        display: flex;
+        flex-direction: column;
+        margin: 0 15px 20px 15px;
+    }
+
+    .register__body-or{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .register__body-link{
+        margin-bottom: 10px;
+    }
+
+    /* Cart */
+    .cart-header-top{
+        height: 50px;
+    }
+
+    .cart-header-list{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .cart-header-item{
+        margin-bottom: 8px;
+    }
+
+    .cart-header-item--app::after{
+        content: '';
+        border: none;
+    }
+
+    .cart__body-top{
+        position: relative;
+    }
+
+    .cart__body-top::after{
+        content: 'Chọn tất cả';
+        position: absolute;
+        margin-left: 25px;
+    }
+
+    .cart__body-top-item--phone{
+        display: none;
+    }
+
+    .cart__body-list{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .cart__body-item{
+        width: 100%;
+    }
+
+    .cart__body-item--product{
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .cart__body-item-name{
+        flex: 2;
+    }
+    
+    .cart__body-item-price{
+        display: none;
+    }
+
+    .cart__body-item--phone{
+        width: 50%;
+        padding: 5px;
+    }
+
+    /* Pay */
+
+    .pay__body-adress{
+        margin: 10px;
+    }
+
+    .pay__body-list{
+        margin: 0 10px;
+    }
+
+    .pay__body-end{
+        margin: 10px;
+    }
+
+    .pay__body-end-btn{
+        height: 50px;
+    }
+
+    .pay__body-end-bank{
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 10px;
+    }
+
+    .pay__body-end-button{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .pay__body-end-btn-text{
+        margin-bottom: 10px;
+    }
+
+    .cart__header-body-text{
+        font-size: 1.8rem;
+    }
+
+    .pay__body-items-name{
+        padding: 2px;
+    }
+
+    .pay__body-end-bank{
+        display: none;
+    }
+
+    /* Product */
+
+    .product__body-top{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .product__body-top-btn{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .product__body-top-btn-add{
+        margin-bottom: 30px;
+    }
+
+    .insurance{
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Trang admin */
+    .admin{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .admin__login{
+        margin: 12px 5px;
+    }
+
+    .admin__login-input{
+        width: 100%;
+    }
+}
