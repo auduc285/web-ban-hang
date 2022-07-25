@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,12 +16,20 @@
 </head>
 <body>
     <div class="admin">
-        <form class="admin__login">
+        <form class="admin__login" action="process_login.php" method="post">
             <h2 class="admin__login-logo">TOTRINH</h2>
             <span class="admin__login-text">Đăng nhập</span>
-            <input type="text" placeholder="Email" required class="admin__login-input">
-            <input type="password" placeholder="Mật Khẩu" required class="admin__login-input">
+            <input type="text" placeholder="Email" required name="email" class="admin__login-input">
+            <input type="password" placeholder="Mật Khẩu" required name="password" class="admin__login-input">
             <button class="admin__login-btn">ĐĂNG NHẬP</button>
+            <?php if(isset($_SESSION['error'])){ ?>
+            <span style="color:red; font-size: 1.6rem" class="error">
+                <?php
+                    echo $_SESSION['error'];
+                    unset($_SESSION['error']);
+                ?>
+            </span>
+            <?php } ?>
         </form>
     </div>
 </body>
