@@ -110,9 +110,14 @@
                     </a>
                 </div>
                 <div class="manager__body-item col col-three manager__body-item--manufacturer">
-                    <a href="./manufacturer.html" class="manager__body-item-link">
+                    <?php
+                        $sql = "select * from manufacturer";
+                        $result = mysqli_query($connect, $sql);
+                        $num_row = mysqli_num_rows($result);
+                    ?>
+                    <a href="./manufacturer.php" class="manager__body-item-link">
                         <i class="manager__body-item--icon fa-solid fa-industry"></i>
-                        <span class="manager__body-item-quantity">2540</span>
+                        <span class="manager__body-item-quantity"><?php echo $num_row ?></span>
                         <span class="manager__body-item-text">Nhà Sản Xuât</span>
                     </a>
                 </div>
