@@ -91,10 +91,15 @@
             <!-- List -->
             <div class="manager__body-list">
                 <div class="manager__body-item col col-three manager__body-item--total">
-                    <a href="./customer.html" class="manager__body-item-link">
+                    <?php
+                        $sql = "select * from customer";
+                        $result = mysqli_query($connect, $sql);
+                        $num_row = mysqli_num_rows($result);
+                    ?>
+                    <a href="./customer.php" class="manager__body-item-link">
                         <i class="manager__body-item--icon fa-solid fa-users"></i>
-                        <span class="manager__body-item-quantity">2540</span>
-                        <span class="manager__body-item-text">Người Dùng</span>
+                        <span class="manager__body-item-quantity"><?php echo $num_row ?></span>
+                        <span class="manager__body-item-text">Khách Hàng</span>
                     </a>
                 </div>
                 <div class="manager__body-item col col-three manager__body-item--staff">

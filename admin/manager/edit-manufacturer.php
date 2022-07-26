@@ -99,7 +99,6 @@
             <?php
                 }else {
                     $each = mysqli_fetch_array($result);
-                }
             ?>
             <div class="add-staff_body-a">
                 <form action="process_edit_manufacturer.php" method="post" class="add-staff__body">
@@ -120,6 +119,7 @@
                     <?php } ?>
                 </form>
             </div>
+            <?php } ?>
         </div>
     </div>
 </body>
