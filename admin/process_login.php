@@ -22,6 +22,7 @@
         $each = mysqli_fetch_array($result);
         $_SESSION['name'] = $each['name'];
         $_SESSION['ID'] = $each['ID'];
+        $_SESSION['photo'] = $each['photo'];
         if($each['level'] == 0){
             header('location:manager');
             exit;

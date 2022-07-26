@@ -21,7 +21,7 @@
         <ul class="manager__nav">
             <li class="manager__nav-item manager__nav-item-header">
                 <a href="./my-info.php" class="manager__nav-item-link manager__nav-item--img">
-                    <img src="../assets/img/84332788_192794961797534_7049027482996965376_n.jpg" alt="" class="manager__nav-item-img">
+                    <img src="../assets/img/<?php echo $_SESSION['photo'] ?>" alt="" class="manager__nav-item-img">
                     <span class="manager__nav-item-user">Xin chào, <?php echo $_SESSION['name'] ?></span>
                 </a>
             </li>

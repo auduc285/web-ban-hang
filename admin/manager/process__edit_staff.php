@@ -22,10 +22,10 @@
 
         if($new_photo['size'] > 0) {
             $file = '../assets/img/';
-            $end_file = explode('.', $photo['name'])[1];
+            $end_file = explode('.', $new_photo['name'])[1];
             $name_file = time() . '.' . $end_file;
             $link = $file . $name_file;
-            move_uploaded_file($photo["tmp_name"], $link);
+            move_uploaded_file($new_photo["tmp_name"], $link);
         }else {
             $name_file = $old_photo;
         }
