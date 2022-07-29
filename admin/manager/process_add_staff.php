@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if(isset($_SESSION['ID'])){
+    if(isset($_SESSION['ID']) && $_SESSION['level'] == 0){
         if(empty($_POST['name']) || empty($_FILES['photo']) || empty($_POST['date']) ||
            empty($_POST['adress']) || empty($_POST['phone']) || empty($_POST['email']) ||
            empty($_POST['password'])){

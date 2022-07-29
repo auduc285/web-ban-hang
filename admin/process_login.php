@@ -23,6 +23,7 @@
         $_SESSION['name'] = $each['name'];
         $_SESSION['ID'] = $each['ID'];
         $_SESSION['photo'] = $each['photo'];
+        $_SESSION['level'] = $each['level'];
         if($each['level'] == 0){
             header('location:manager');
             exit;

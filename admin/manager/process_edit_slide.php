@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if(isset($_SESSION['ID'])) {
+    if(isset($_SESSION['ID']) && $_SESSION['level'] == 0) {
         $new_photo = $_FILES['new_photo'];
         if($new_photo['size'] == 0 || empty($_POST['ID'])) {
             header('location:./slide.php');

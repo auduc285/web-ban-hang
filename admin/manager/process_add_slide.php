@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if(isset($_SESSION['ID'])) {
+    if(isset($_SESSION['ID']) && $_SESSION['level'] == 0) {
         $photo = $_FILES['photo'];
         if($photo['size'] == 0) {
             $_SESSION['error'] = 'Không được bỏ trống thông tin';

@@ -1,5 +1,5 @@
 <?php
-    if(isset($_SESSION['ID'])) {
+    if(isset($_SESSION['ID']) && $_SESSION['level'] == 0) {
         if(empty($_POST['ID'])) {
             header('../index.php');
             exit;

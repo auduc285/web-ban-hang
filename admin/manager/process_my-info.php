@@ -1,7 +1,7 @@
 <?php
     session_start();
     $ID = $_SESSION['ID'];
-    if(isset($_SESSION['ID'])) {
+    if(isset($_SESSION['ID']) && $_SESSION['level'] == 0) {
         if(empty($_POST['name']) || empty($_POST['old_photo']) || empty($_POST['date']) ||
            empty($_POST['adress']) || empty($_POST['phone']) || empty($_POST['email']) ||
            empty($_POST['old_pass'])) {

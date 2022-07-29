@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if(isset($_SESSION['ID'])) {
+    if(isset($_SESSION['ID']) && $_SESSION['level'] == 0) {
         if(empty($_POST['name']) || empty($_FILES['photo']) || empty($_POST['ID_manufacturer']) ||
            empty($_POST['price']) || empty($_POST['review'])) {
             $_SESSION['error'] = 'Không được để trống thông tin';

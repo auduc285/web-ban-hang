@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if(isset($_SESSION['ID'])){
+    if(isset($_SESSION['ID']) && $_SESSION['level'] == 0){
 ?>
 <!DOCTYPE html>
 <html lang="en">
