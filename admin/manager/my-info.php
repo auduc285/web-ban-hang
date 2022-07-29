@@ -137,6 +137,7 @@
                         <input type="hidden" name="old_pass" value="<?php echo $each['password'] ?>">
                     </div>
                     <button class="btn">Sửa</button>
+                    <a href="./log-out.php">Đăng Xuất</a>
                     <?php if(isset($_SESSION['error'])) { ?>
                     <span style="color:red; font-size:1.4rem">
                         <?php
