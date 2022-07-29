@@ -96,15 +96,15 @@
                     <h3 class="add-staff__body-title">Thêm Sản Phẩm</h3>
                     <div class="add-staff__body-item">
                         <span class="add-staff__body-item-text">Tên Sản Phẩm</span>
-                        <input type="text" name="name" placeholder="Tên Sản Phẩm" class="add-staff__body-item-inp" require>
+                        <input type="text" name="name" placeholder="Tên Sản Phẩm" class="add-staff__body-item-inp" required>
                     </div>  
                     <div class="add-staff__body-item">
                         <span class="add-staff__body-item-text">Ảnh</span>
-                        <input type="file" name="photo" class="add-staff__body-item-inp" require>
+                        <input type="file" name="photo" class="add-staff__body-item-inp" required>
                     </div>
                     <div class="add-staff__body-item">
                         <span class="add-staff__body-item-text">Nhà Sản Xuất</span>
-                        <select name="ID_manufacturer" id="" require>
+                        <select name="ID_manufacturer" id="" required>
                             <?php foreach($result as $each): ?>
                             <option value="<?php echo $each['ID'] ?>"><?php echo $each['name'] ?></option>
                             <?php endforeach ?>
@@ -112,7 +112,7 @@
                     </div>
                     <div class="add-staff__body-item">
                         <span class="add-staff__body-item-text">Giá</span>
-                        <input type="number" name="price" placeholder="Giá" class="add-staff__body-item-inp" require>
+                        <input type="number" name="price" placeholder="Giá" class="add-staff__body-item-inp" required>
                     </div>
                     <div class="add-staff__body-item">
                         <span class="add-staff__body-item-text">Mô Tả Sản Phẩm</span>

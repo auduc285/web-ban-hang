@@ -90,11 +90,11 @@
                     <h3 class="add-staff__body-title">Thêm Nhân Viên</h3>
                     <div class="add-staff__body-item">
                         <span class="add-staff__body-item-text">Họ Và Tên</span>
-                        <input type="text" name="name" placeholder="Họ Và Tên" class="add-staff__body-item-inp" require>
+                        <input type="text" name="name" placeholder="Họ Và Tên" class="add-staff__body-item-inp" required>
                     </div>  
                     <div class="add-staff__body-item">
                         <span class="add-staff__body-item-text">Ảnh</span>
-                        <input type="file" name="photo" class="add-staff__body-item-inp" require>
+                        <input type="file" name="photo" class="add-staff__body-item-inp" required>
                     </div>
                     <div class="add-staff__body-item">
                         <span class="add-staff__body-item-text">Giới Tính</span>
@@ -105,23 +105,23 @@
                     </div>
                     <div class="add-staff__body-item">
                         <span class="add-staff__body-item-text">Ngày Sinh</span>
-                        <input type="text" name="date" placeholder="yyyy/mm/dd" class="add-staff__body-item-inp" require>
+                        <input type="text" name="date" placeholder="yyyy/mm/dd" class="add-staff__body-item-inp" required>
                     </div>
                     <div class="add-staff__body-item">
                         <span class="add-staff__body-item-text">Địa Chỉ</span>
-                        <input type="text" name="adress" placeholder="Địa Chỉ" class="add-staff__body-item-inp" require>
+                        <input type="text" name="adress" placeholder="Địa Chỉ" class="add-staff__body-item-inp" required>
                     </div>
                     <div class="add-staff__body-item">
                         <span class="add-staff__body-item-text">Số Điện Thoại</span>
-                        <input type="number" name="phone" placeholder="Số Điện Thoại" class="add-staff__body-item-inp" require>
+                        <input type="number" name="phone" placeholder="Số Điện Thoại" class="add-staff__body-item-inp" required>
                     </div>
                     <div class="add-staff__body-item">
                         <span class="add-staff__body-item-text">Email</span>
-                        <input type="email" name="email" placeholder="Email" class="add-staff__body-item-inp" require>
+                        <input type="email" name="email" placeholder="Email" class="add-staff__body-item-inp" required>
                     </div>
                     <div class="add-staff__body-item">
                         <span class="add-staff__body-item-text">Mật Khẩu</span>
-                        <input type="password" name="password" placeholder="Mật Khẩu" class="add-staff__body-item-inp" require>
+                        <input type="password" name="password" placeholder="Mật Khẩu" class="add-staff__body-item-inp" required>
                     </div>
                     <button class="btn">Thêm</button>
                     <?php if(isset($_SESSION['error'])){ ?>

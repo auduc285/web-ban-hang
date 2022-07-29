@@ -90,11 +90,11 @@
                     <h3 class="add-staff__body-title">Thêm Thông Báo</h3>  
                     <div class="add-staff__body-item">
                         <span class="add-staff__body-item-text">Ảnh</span>
-                        <input type="file" name="photo" class="add-staff__body-item-inp" require>
+                        <input type="file" name="photo" class="add-staff__body-item-inp" required>
                     </div>
                     <div class="add-staff__body-item">
                         <span class="add-staff__body-item-text">Nội Dung Thông Báo</span>
-                        <textarea name="content" id="" cols="10" rows="10" placeholder="Nội Dung Thông Báo" require></textarea>
+                        <textarea name="content" id="" cols="10" rows="10" placeholder="Nội Dung Thông Báo" required></textarea>
                     </div>
                     <button class="btn">Thêm</button>
                     <?php if(isset($_SESSION['error'])) { ?>

@@ -24,7 +24,7 @@
         <ul class="manager__nav">
             <li class="manager__nav-item manager__nav-item-header">
                 <a href="./my-info.php" class="manager__nav-item-link manager__nav-item--img">
-                    <img src="../assets/img/84332788_192794961797534_7049027482996965376_n.jpg" alt="" class="manager__nav-item-img">
+                    <img src="../assets/img/<?php echo $_SESSION['photo'] ?>" alt="" class="manager__nav-item-img">
                     <span class="manager__nav-item-user">Xin chào, <?php echo $_SESSION['name'] ?></span>
                 </a>
             </li>
@@ -163,9 +163,14 @@
                     </a>
                 </div>
                 <div class="manager__body-item col col-three manager__body-item--slider">
-                    <a href="./slide.html" class="manager__body-item-link">
+                    <?php
+                        $sql = "select * from slide";
+                        $result = mysqli_query($connect, $sql);
+                        $num_row = mysqli_num_rows($result);
+                    ?>
+                    <a href="./slide.php" class="manager__body-item-link">
                         <i class="manager__body-item--icon fa-solid fa-pager"></i>
-                        <span class="manager__body-item-quantity">2540</span>
+                        <span class="manager__body-item-quantity"><?php echo $num_row ?></span>
                         <span class="manager__body-item-text">Slider</span>
                     </a>
                 </div>

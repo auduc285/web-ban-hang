@@ -90,7 +90,7 @@
                     <h3 class="add-staff__body-title">Thêm Nhà Sản Xuất</h3>
                     <div class="add-staff__body-item">
                         <span class="add-staff__body-item-text">Tên Nhà Sản Xuất</span>
-                        <input type="text" name="name" placeholder="Tên Nhà Sản Xuất" class="add-staff__body-item-inp">
+                        <input type="text" name="name" placeholder="Tên Nhà Sản Xuất" class="add-staff__body-item-inp" required>
                     </div>  
                     <button class="btn">Thêm</button>
                     <?php if(isset($_SESSION['error'])) { ?>

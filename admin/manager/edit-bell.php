@@ -105,11 +105,11 @@
             <div class="add-staff_body-a">
                 <form action="process_edit_bell.php" method="post" class="add-staff__body">
                     <h3 class="add-staff__body-title">Sửa Thông Báo</h3>  
-                    <input type="hidden" name="ID" value="<?php echo $each['ID'] ?>" id="" require>
+                    <input type="hidden" name="ID" value="<?php echo $each['ID'] ?>" id="" required>
                     <div class="add-staff__body-item">
                         <span class="add-staff__body-item-text">Ảnh Cũ</span>
                         <img src="../assets/img/<?php echo $each['photo'] ?>" alt="" class="add-staff__body-img-old">
-                        <input type="hidden" name="old_photo" value="<?php echo $each['photo'] ?>" require>
+                        <input type="hidden" name="old_photo" value="<?php echo $each['photo'] ?>" required>
                     </div> 
                     <div class="add-staff__body-item">
                         <span class="add-staff__body-item-text">Ảnh</span>
@@ -117,7 +117,7 @@
                     </div>
                     <div class="add-staff__body-item">
                         <span class="add-staff__body-item-text">Nội Dung Thông Báo</span>
-                        <textarea name="content" id="" cols="10" rows="10" require>
+                        <textarea name="content" id="" cols="10" rows="10" required>
                             <?php echo $each['content'] ?>
                         </textarea>
                     </div>

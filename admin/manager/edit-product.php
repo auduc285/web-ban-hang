@@ -99,15 +99,15 @@
             <div class="add-staff_body-a">
                 <form action="process_edit_product.php" method="post" class="add-staff__body" enctype="multipart/form-data">
                     <h3 class="add-staff__body-title">Sửa Sản Phẩm</h3>
-                    <input type="hidden" name="ID" value=<?php echo $each['ID'] ?> require>
+                    <input type="hidden" name="ID" value=<?php echo $each['ID'] ?> required>
                     <div class="add-staff__body-item">
                         <span class="add-staff__body-item-text">Tên Sản Phẩm</span>
-                        <input type="text" name="name" placeholder="Tên Sản Phẩm" value="<?php echo $each['name'] ?>" class="add-staff__body-item-inp" require>
+                        <input type="text" name="name" placeholder="Tên Sản Phẩm" value="<?php echo $each['name'] ?>" class="add-staff__body-item-inp" required>
                     </div>
                     <div class="add-staff__body-item">
                         <span class="add-staff__body-item-text">Ảnh Cũ</span>
                         <img src="../assets/img/<?php echo $each['photo'] ?>" alt="" class="add-staff__body-img-old">
-                        <input type="hidden" name="old_photo" value=<?php echo $each['photo'] ?> require>
+                        <input type="hidden" name="old_photo" value=<?php echo $each['photo'] ?> required>
                     </div>   
                     <div class="add-staff__body-item">
                         <span class="add-staff__body-item-text">Ảnh</span>
@@ -123,7 +123,7 @@
                     </div>
                     <div class="add-staff__body-item">
                         <span class="add-staff__body-item-text">Giá</span>
-                        <input type="number" name="price" placeholder="Giá" value="<?php echo $each['price'] ?>" class="add-staff__body-item-inp" require>
+                        <input type="number" name="price" placeholder="Giá" value="<?php echo $each['price'] ?>" class="add-staff__body-item-inp" required>
                     </div>
                     <div class="add-staff__body-item">
                         <span class="add-staff__body-item-text">Mô Tả Sản Phẩm</span>
