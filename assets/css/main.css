@@ -445,7 +445,6 @@
 
 .container__product-items{
     background-color: var(--white-color);
-    height: 325px;
     border: 0.5px solid #ccc;
     margin-left: 8px;
     margin-right: 8px;

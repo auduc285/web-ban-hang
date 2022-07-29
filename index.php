@@ -1,3 +1,4 @@
+<?php session_start() ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -56,41 +57,29 @@
                                 <div class="header__notify-header">
                                     <h3>Thông báo mới nhận</h3>
                                 </div>
+                                <?php
+                                    if(isset($_SESSION['ID'])) {
+                                        include './admin/connect.php';
+                                        $sql = "select * from bell";
+                                        $result = mysqli_query($connect, $sql);
+                                ?>
                                 <ul class="header__notify-list">
+                                    <?php foreach($result as $each): ?>
                                     <li class="header__notify-item">
                                         <a href="" class="header__notify-link">
-                                            <img src="./assets/img/slae1k.png" alt="" class="header__notify-img">
+                                            <img src="./admin/assets/img/<?php echo $each['photo'] ?>" alt="" class="header__notify-img">
                                             <div class="header__notify-body">
-                                                <span class="header__notify-name">DEAL TỪ 1K LẠI CÒN FREESHIP</span>
-                                                <span class="header__notify-desc">
-                                                    Dây cuốn sạc, miếng dán trắng
-                                                </span>
+                                                <span class="header__notify-name"><?php echo $each['content'] ?></span>
                                             </div>
                                         </a>
                                     </li>
-                                    <li class="header__notify-item header__notify-item--viewed">
-                                        <a href="" class="header__notify-link">
-                                            <img src="./assets/img/slae1k.png" alt="" class="header__notify-img">
-                                            <div class="header__notify-body">
-                                                <span class="header__notify-name">DEAL TỪ 1K LẠI CÒN FREESHIP</span>
-                                                <span class="header__notify-desc">
-                                                    Dây cuốn sạc, miếng dán trắng
-                                                </span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li class="header__notify-item">
-                                        <a href="" class="header__notify-link">
-                                            <img src="./assets/img/slae1k.png" alt="" class="header__notify-img">
-                                            <div class="header__notify-body">
-                                                <span class="header__notify-name">DEAL TỪ 1K LẠI CÒN FREESHIP</span>
-                                                <span class="header__notify-desc">
-                                                    Dây cuốn sạc, miếng dán trắng
-                                                </span>
-                                            </div>
-                                        </a>
-                                    </li>
+                                    <?php endforeach ?>
                                 </ul>
+                                <?php }else { ?>
+                                <span>
+                                    Đăng nhập để xem thông báo.
+                                </span>
+                                <?php } ?>
                                 <div class="header__notify-footer">
                                     <a href="" class="header__notify-footer-btn">Xem tất cả</a>
                                 </div>
@@ -103,10 +92,10 @@
                             </a>
                         </li>
                         <li class="header__nav-item">
-                            <a href="./register.html" class="header__nav-item-link header__nav-item--bold header__nav-item--sepalate">Đăng ký</a>
+                            <a href="./register.php" class="header__nav-item-link header__nav-item--bold header__nav-item--sepalate">Đăng ký</a>
                         </li>
                         <li class="header__nav-item">
-                            <a href="./login.html" class="header__nav-item-link header__nav-item--bold">Đăng nhập</a>
+                            <a href="./login.php" class="header__nav-item-link header__nav-item--bold">Đăng nhập</a>
                         </li>
                     </ul>
                 </nav>
@@ -116,7 +105,7 @@
                 <div class="header-with__search">
                     <!-- Begin Logo -->
                     <div class="header__logo">
-                        <a href="index.html" class="header__logo-name">TOTRINH</a>
+                        <a href="index.php" class="header__logo-name">TOTRINH</a>
                     </div>
                     <!-- End logo -->
 
@@ -133,7 +122,7 @@
 
                     <!-- Begin cart -->
                     <div class="header__cart">
-                        <a href="./cart.html" class="header__cart-link">
+                        <a href="./cart.php" class="header__cart-link">
                             <i class="header__cart-link-icon ti-shopping-cart"></i>
                         </a>
                         <div class="header__cart-title">
@@ -150,15 +139,26 @@
                 <!-- Begin slider -->
                 <section id="container__slider">
                     <!-- Begin img -->
+                    <?php
+                        require './admin/connect.php';
+                        $sql = "select * from slide";
+                        $result = mysqli_query($connect, $sql);
+                        $i = mysqli_num_rows($result);
+                    ?>
                     <div class="container__slider-items">
-                        <img src="./assets/img/slide1.jpg" class="container__slider-img">
-                        <img src="./assets/img/slide2.jpg" class="container__slider-img">
+                        <?php foreach($result as $each): ?>
+                        <img src="./admin/assets/img/<?php echo $each['photo'] ?>" class="container__slider-img">
+                        <?php endforeach ?>
                     </div>
                     <!-- End img -->
                     <!-- Begin button -->
                     <div class="container__slider-btns">
                         <div class="container__slider-btn container__slider-btn--now"></div>
+                        <?php
+                            for($d = 1; $d < $i; $d++) {
+                        ?>
                         <div class="container__slider-btn"></div>
+                        <?php } ?>
                     </div>
                     <!-- End button -->
                 </section>
@@ -190,45 +190,25 @@
                     <!-- End product header -->
                     <!-- Begin product list -->
                     <div class="container__product-list">
+                        <?php
+                            require './admin/connect.php';
+                            $sql = "select * from product";
+                            $result = mysqli_query($connect, $sql);
+                        ?>
+                        <?php foreach($result as $each): ?>
                         <div class="container__product-items col col-six col-full">
-                            <a href="./product.html" class="container__product-link">
+                            <a href="./product.php?id=<?php echo $each['ID'] ?>" class="container__product-link">
                                 <div class="container__product-item">
-                                    <img src="./assets/img/samsung.jpg" alt="" class="container-body-img">
+                                    <img src="./admin/assets/img/<?php echo $each['photo'] ?>" alt="" class="container-body-img">
                                 </div>
                                 <div class="container__product-body">
-                                    <span class="container__product-body-name">Điện thoại Samsung Galaxy M12 (3GB/32GB) - Hàng Chính Hãng</span>
-                                    <span class="container__product-body-price">2.890.000</span>
+                                    <span class="container__product-body-name"><?php echo $each['name'] ?></span>
+                                    <span class="container__product-body-price"><?php echo $each['price'] ?></span>
                                     <span class="container__product-body-text">Đã bán 15,5k</span>
-                                    <span class="container__product-body-address">TP.Hồ Chí Minh</span>
                                 </div>
                             </a>
                         </div>
-                        <div class="container__product-items col col-six col-full">
-                            <a href="./product.html" class="container__product-link">
-                                <div class="container__product-item">
-                                    <img src="./assets/img/nokia.jpg" alt="" class="container-body-img">
-                                </div>
-                                <div class="container__product-body">
-                                    <span class="container__product-body-name">Điện Thoại Nokia 101,Nokia 100, Nokia 105 Zin Chính Hãng</span>
-                                    <span class="container__product-body-price">110.000 - 160.000</span>
-                                    <span class="container__product-body-text">Đã bán 18,1k</span>
-                                    <span class="container__product-body-address">Hà Nội</span>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="container__product-items col col-six col-full">
-                            <a href="./product.html" class="container__product-link">
-                                <div class="container__product-item">
-                                    <img src="./assets/img/POVA2.jpg" alt="" class="container-body-img">
-                                </div>
-                                <div class="container__product-body">
-                                    <span class="container__product-body-name">Điện thoại TECNO POVA2 (4GB+64GB) - Hàng chính hãng</span>
-                                    <span class="container__product-body-price">3.390.000</span>
-                                    <span class="container__product-body-text">Đã bán 578</span>
-                                    <span class="container__product-body-address">TP.Hồ Chí Minh</span>
-                                </div>
-                            </a>
-                        </div>
+                        <?php endforeach ?>
                     </div>
                     <!-- End product list -->
                     <!-- Begin product footer -->
