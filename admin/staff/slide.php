@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản Lý Sản Phẩm</title>
+    <title>Quản Lý Slide</title>
     <link rel="stylesheet" href="../assets/css/base.css">
     <link rel="stylesheet" href="../assets/css/main.css">
     <link rel="stylesheet" href="../assets/css/reposive.css">
@@ -44,13 +44,13 @@
                 </a>
             </li>
             <li class="manager__nav-item">
-                <a href="./manufacturer.php" class="manager__nav-item-link">
+                <a href="./product.php" class="manager__nav-item-link">
                     <i class="manager__nav-item--icon fa-solid fa-industry"></i>
                     <span class="manager__nav-item-text">Quản Lý Nhà Sản Xuất</span>
                 </a>
             </li>
-            <li class="manager__nav-item manager__nav-item--now">
-                <a href="./product.php" class="manager__nav-item-link manager__nav-item--now">
+            <li class="manager__nav-item">
+                <a href="./product.php" class="manager__nav-item-link">
                     <i class="manager__nav-item--icon fa-solid fa-mobile"></i>
                     <span class="manager__nav-item-text">Quản Lý Sản Phẩm</span>
                 </a>
@@ -67,8 +67,8 @@
                     <span class="manager__nav-item-text">Quản Lý Thông Báo</span>
                 </a>
             </li>
-            <li class="manager__nav-item">
-                <a href="./slide.php" class="manager__nav-item-link">
+            <li class="manager__nav-item manager__nav-item--now">
+                <a href="./slide.php" class="manager__nav-item-link manager__nav-item--now">
                     <i class="manager__nav-item--icon fa-solid fa-pager"></i>
                     <span class="manager__nav-item-text">Slider</span>
                 </a>
@@ -87,28 +87,25 @@
             </div>
             <!-- Table -->
             <div class="staff__body-add">
-                <a href="./add-product.php" title="Thêm" class="staff__body-add-link">
+                <a href="./add-slide.php" title="Thêm" class="staff__body-add-link">
                     <i class="fa-solid fa-user-plus"></i>
                 </a>
             </div>
             <?php
                 require '../connect.php';
-                $sql = "select product.*, manufacturer.name as name_1 from product join manufacturer on product.ID_manufacturer = manufacturer.ID";
+                $sql = "select * from slide";
                 $result = mysqli_query($connect, $sql);
                 $num = mysqli_num_rows($result);
                 if($num == 0) {
             ?>
             <span style="color:red;font-size:1.6rem">
-                    Không có sản phẩm.
+                    Không có slide.
             </span>
-            <?php }else { ?>
+            <?php }else{ ?>
             <table class="staff__body-table">
                 <tr>
                     <th>ID</th>
                     <th>Ảnh</th>
-                    <th>Tên Sản Phẩm</th>
-                    <th>Tên Nhà Sản Xuất</th>
-                    <th>Giá</th>
                     <th>Ghi Chú</th>
                     <th>Tính Năng</th>
                 </tr>
@@ -116,17 +113,14 @@
                 <tr>
                     <td><?php echo $each['ID'] ?></td>
                     <td>
-                        <img src="../assets/img/<?php echo $each['photo'] ?>" alt="" class="staff__body-table-img">
+                        <img src="../assets/img/<?php echo $each['photo'] ?>" alt="" width="100%">
                     </td>
-                    <td><?php echo $each['name'] ?></td>
-                    <td><?php echo $each['name_1'] ?></td>
-                    <td><?php echo $each['price'] ?></td>
                     <td><?php echo $each['note'] ?></td>
                     <td>
-                        <a href="./edit-product.php?id=<?php echo $each['ID'] ?>" title="Sửa" class="staff__body-table-link">
+                        <a href="./edit-slide.php?id=<?php echo $each['ID'] ?>" class="staff__body-table-link">
                             <i title="Sửa" class="staff__body-table--icon fa-solid fa-pen"></i>
                         </a>
-                        <a href="./delete-product.php?id=<?php echo $each['ID'] ?>" title="Xóa" class="staff__body-table-link">
+                        <a href="./delete-slide.php?id=<?php echo $each['ID'] ?>" title="Xóa" class="staff__body-table-link">
                             <i title="Xóa" class="staff__body-table--icon fa-solid fa-trash"></i>
                         </a>
                     </td>
