@@ -1,10 +1,27 @@
+<?php
+    session_start();
+    if(empty($_GET['id'])) {
+        header('location:./index.php');
+        exit;
+    }
+    $ID = $_GET['id'];
+    require './admin/connect.php';
+    $sql = "select * from product where ID = '$ID'";
+    $result = mysqli_query($connect, $sql);
+    $num = mysqli_num_rows($result);
+    if($num == 0) {
+        header('location:./index.php');
+        exit;
+    }else {
+        $each = mysqli_fetch_array($result);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chi tiết sản phẩm</title>
+    <title><?php echo $each['name'] ?></title>
     <link rel="stylesheet" href="./assets/css/base.css">
     <link rel="stylesheet" href="./assets/css/main.css">
     <link rel="stylesheet" href="./assets/font/fontawesome-free-6.1.1-web/css/all.css">
@@ -57,39 +74,27 @@
                                     <h3>Thông báo mới nhận</h3>
                                 </div>
                                 <ul class="header__notify-list">
+                                <?php
+                                    if(isset($_SESSION['ID'])) {
+                                        include './admin/connect.php';
+                                        $sql = "select * from bell";
+                                        $result = mysqli_query($connect, $sql);
+                                ?>
+                                    <?php foreach($result as $each): ?>
                                     <li class="header__notify-item">
                                         <a href="" class="header__notify-link">
-                                            <img src="./assets/img/slae1k.png" alt="" class="header__notify-img">
+                                            <img src="./admin/assets/img/<?php echo $each['photo'] ?>" alt="" class="header__notify-img">
                                             <div class="header__notify-body">
-                                                <span class="header__notify-name">DEAL TỪ 1K LẠI CÒN FREESHIP</span>
-                                                <span class="header__notify-desc">
-                                                    Dây cuốn sạc, miếng dán trắng
-                                                </span>
+                                                <span class="header__notify-name"><?php echo $each['content'] ?></span>
                                             </div>
                                         </a>
                                     </li>
-                                    <li class="header__notify-item header__notify-item--viewed">
-                                        <a href="" class="header__notify-link">
-                                            <img src="./assets/img/slae1k.png" alt="" class="header__notify-img">
-                                            <div class="header__notify-body">
-                                                <span class="header__notify-name">DEAL TỪ 1K LẠI CÒN FREESHIP</span>
-                                                <span class="header__notify-desc">
-                                                    Dây cuốn sạc, miếng dán trắng
-                                                </span>
-                                            </div>
-                                        </a>
+                                    <?php endforeach ?>
+                                    <?php }else { ?>
+                                    <li class="header__notify-item" style="color:black">
+                                        Đăng nhập để xem thông báo.
                                     </li>
-                                    <li class="header__notify-item">
-                                        <a href="" class="header__notify-link">
-                                            <img src="./assets/img/slae1k.png" alt="" class="header__notify-img">
-                                            <div class="header__notify-body">
-                                                <span class="header__notify-name">DEAL TỪ 1K LẠI CÒN FREESHIP</span>
-                                                <span class="header__notify-desc">
-                                                    Dây cuốn sạc, miếng dán trắng
-                                                </span>
-                                            </div>
-                                        </a>
-                                    </li>
+                                <?php } ?>
                                 </ul>
                                 <div class="header__notify-footer">
                                     <a href="" class="header__notify-footer-btn">Xem tất cả</a>
@@ -102,12 +107,18 @@
                                 Trợ giúp
                             </a>
                         </li>
+                        <?php if(isset($_SESSION['ID'])) { ?>
                         <li class="header__nav-item">
-                            <a href="./register.html" class="header__nav-item-link header__nav-item--bold header__nav-item--sepalate">Đăng ký</a>
+                            <a href="./myinfo.php" class="header__nav-item-link header__nav-item--bold header__nav-item--sepalate"><?php echo $_SESSION['name'] ?></a>
+                        </li>
+                        <?php }else { ?>
+                        <li class="header__nav-item">
+                            <a href="./register.php" class="header__nav-item-link header__nav-item--bold header__nav-item--sepalate">Đăng ký</a>
                         </li>
                         <li class="header__nav-item">
-                            <a href="./login.html" class="header__nav-item-link header__nav-item--bold">Đăng nhập</a>
+                            <a href="./login.php" class="header__nav-item-link header__nav-item--bold">Đăng nhập</a>
                         </li>
+                        <?php } ?>
                     </ul>
                 </nav>
                 <!-- End navbar -->
@@ -116,7 +127,7 @@
                 <div class="header-with__search">
                     <!-- Begin Logo -->
                     <div class="header__logo">
-                        <a href="index.html" class="header__logo-name">TOTRINH</a>
+                        <a href="./index.php" class="header__logo-name">TOTRINH</a>
                     </div>
                     <!-- End logo -->
 
@@ -151,12 +162,13 @@
             <div class="product__body-top">
                 <!-- Ảnh minh họa -->
                 <div class="product__body-top-left">
-                    <img src="./assets/img/samsung.jpg" alt="" class="product__body-top-img">
+                    <img src="./admin/assets/img/<?php echo $each['photo'] ?>" alt="" class="product__body-top-img">
                 </div>
                 <!-- Thông tin máy -->
-                <div class="product__body-top-right">
-                    <h3 class="product__body-top-name">Điện thoại Samsung Galaxy M12 (3GB/32GB) - Hàng Chính Hãng</h3>
-                    <span class="product__body-top-price">2.890.000</span>
+                <form action="pay-now.php" method="post" class="product__body-top-right">
+                    <input type="hidden" name="ID" value="<?php echo $each['ID'] ?>" required>
+                    <h3 class="product__body-top-name"><?php echo $each['name'] ?></h3>
+                    <span class="product__body-top-price"><?php echo $each['price'] ?></span>
                     <div class="product__body-top-insurance">
                         <span class="product__body-top-insurance-l">Bảo Hiểm</span>
                         <div class="product__body-top-insurance-r insurance">
@@ -174,16 +186,16 @@
                     <div class="product__body-top-insurance">
                         <span class="product__body-top-insurance-l">Số Lượng</span>
                         <div class="product__body-top-insurance-r">
-                            <a href="" class="product__body-top-insurance-r--quantity">-</a>
-                            <input type="number" min="1" value="1" class="product__body-top-insurance-r--view">
-                            <a href="" class="product__body-top-insurance-r--quantity">+</a>
+                            <!-- <a href="" class="product__body-top-insurance-r--quantity">-</a> -->
+                            <input type="number" name="quantity" min="1" value="1" class="product__body-top-insurance-r--view" required>
+                            <!-- <a href="./plus.php?id=" class="product__body-top-insurance-r--quantity">+</a> -->
                         </div>
                     </div>
                     <div class="product__body-top-btn">
-                        <button class="product__body-top-btn-add">
+                        <a class="product__body-top-btn-add">
                             <i class="product__body-top-btn-add--icon ti-shopping-cart"></i>
                             Thêm Vào Giỏ Hàng
-                        </button>
+                        </a>
                         <button class="product__body-top-btn-pay">
                             Mua Ngay
                         </button>
@@ -211,44 +223,13 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
             <!-- Phần mô tả -->
             <div class="product__body-desc">
                 <div class="product__body-desc-top">MÔ TẢ SẢN PHẨM</div>
                 <div class="product__body-desc-container">
-                    Thiết Kế Trẻ Trung, Hiện Đại<br><br>
-                    Mặt lưng ánh kim thời thượng, kết hợp với những họa tiết siêu nhỏ tạo nên một thiết kế Galaxy đậm chất thời đại, dẫn đầu xu hướng. Thân máy được hoàn thiện tỉ mỉ với đường cong mềm mại, cùng sắc màu cổ điển bạn yêu thích: Đen Cuốn Hút, Xanh Lam Lịch Lãm hoặc Xanh Ngọc Thời Thượng.<br><br>
-                    Thỏa Sức Sáng Tạo Với Bộ 4 Camera 48MP<br><br>
-                    Bộ 4 Camera 48MP ưu việt dẫn đầu công nghệ cho chất lượng hình ảnh chân thực và sắc nét. Mở rộng khung hình với Camera Góc Siêu Rộng 5MP. Tối ưu lấy nét với Camera Chiều Sâu hoặc chụp ảnh nghệ thuật cùng Camera Macro 2MP.<br><br>
-                    Màn Hình Rộng, Trải Nghiệm Nhiều Hơn<br><br>
-                    Thoải mái trải nghiệm nhiều nội dung hơn với màn hình tràn viền vô cực Infinity-V 6,5"". Công nghệ HD+ mang đến chất lượng hiển thị rõ ràng và sắc nét, cho bạn thỏa thích thưởng thức nội dung đỉnh cao.<br><br>
-                    Năng Lượng Dồi Dào Cho Trải Nghiệm Bất Tận<br><br>
-                    Thoải mái trải nghiệm suốt ngày dài với siêu pin mãnh thú đến 5.000mAh (tiêu chuẩn)*. Nhanh chóng sạc đầy chỉ trong tích tắc với công nghệ sạc nhanh siêu tốc 15W vượt trội.<br><br>
-                    Hiệu Suất Mạnh Mẽ Cho Bạn An Tâm Trải Nghiệm<br><br>
-                    Xử lý nhanh chóng và hiệu quả mọi tác vụ với bộ vi xử lý 8 nhân mạnh mẽ và RAM lên đến 3GB/4GB/6GB. Tận hưởng 32GB/64GB/128GB bộ nhớ trong sẵn có hoặc thoải mái mở rộng không gian lưu trữ với thẻ nhớ MicroSD lên đến 1TB.<br><br>
-                    Tập Trung Trải Nghiệm Với One UI Core<br><br>
-                    Sẵn sàng trải nghiệm những đột phá trên giao diện One UI Core của Samsung mang đến hiệu suất ấn tượng kết hợp thiết kế giao diện hoàn toàn mới giúp tối ưu trải nghiệm người dùng.<br><br>
-                    Thông Số Kỹ Thuật<br><br>
-                    Màu sắc: Đen Cuốn Hút, Xanh Lam Lịch Lãm hoặc Xanh Ngọc Thời Thượng<br><br>
-                    Bộ vi xử lý: Octa-core (2GHz)<br><br>
-                    Hiển thị: <br><br>
-                    Kích thước: 6.5"<br><br>
-                    Độ phân giải: 720 x 1600 (HD+)<br><br>
-                    Công nghệ màn hình PLS TFT LCD<br><br>
-                    Camera:<br><br>
-                    Camera sau: 48.0 MP + 5.0 MP + 2.0 MP + 2.0 MP<br><br>
-                    Camera trước: 8.0 MP<br><br>
-                    Bộ nhớ: RAM 3GB ROM 32GB<br><br>
-                    SIM: SIM Nano <br><br>
-                    Loại khe SIM: SIM 1 + SIM 2 + MicroSD<br><br>
-                    Pin: 5.000mAh.<br><br>
-                    Dịch vụ: Hỗ trợ Samsung Dex: Không<br><br>
-                    Bộ sản phẩm bao gồm: Điện thoại, Cáp type C, củ sạc, sách hướng dẫn<br><br>
-                    Thông tin bảo hành:<br><br>
-                    Bảo hành chính hãng 12 tháng. <br><br>
-                    Trung tâm bảo hành vui lòng tham khảo đường link: https://www.samsung.com/vn/support/service-center/ <br><br>
-                    Hotline: 1800-588-855<br><br>
+                    <?php echo $each['review'] ?>
                 </div>
             </div>
         </div>
@@ -308,3 +289,4 @@
     </div>
 </body>
 </html>
+<?php } ?>

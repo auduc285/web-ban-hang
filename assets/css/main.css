@@ -1240,8 +1240,9 @@
 }
 
 .product__body-top-insurance-r--view{
-    width: 30px;
+    width: 50px;
     text-align: center;
+    line-height: 2rem;
 }
 
 .product__body-top-btn{
