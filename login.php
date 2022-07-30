@@ -1,3 +1,4 @@
+<?php session_start() ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +16,7 @@
         <!-- Begin header -->
         <div class="register__header">
             <div class="register__header-logo">
-                <a href="index.html" class="register__header-logo-link">TOTRINH</a>
+                <a href="./index.php" class="register__header-logo-link">TOTRINH</a>
                 <p class="register__header-logo-now">Đăng nhập</p>
             </div>
             <div class="register__header-help">
@@ -31,13 +32,21 @@
                 <span class="register__body-logo-sub">Nền tảng thương mại điện tử được yêu thích</span>
             </div>
             <div class="register__body-forms">
-                <form action="" class="register__body-form">
+                <form action="process_login.php" method="post" class="register__body-form">
                     <h3 class="register__body-form-header">Đăng nhập</h3>
                     <div class="register__body-form-inputs">
-                        <input type="text" class="register__body-form-input" placeholder="Email" required>
-                        <input type="password" class="register__body-form-input" placeholder="Mật Khẩu" required>
+                        <input type="text" name="email" class="register__body-form-input" placeholder="Email" required>
+                        <input type="password" name="password" class="register__body-form-input" placeholder="Mật Khẩu" required>
                     </div>
                     <button class="btn btn--primary register__body-form-btn">ĐĂNG NHẬP</button>
+                    <?php if(isset($_SESSION['error'])) { ?>
+                    <span style="color:red; font-size:1.4rem">
+                        <?php
+                            echo $_SESSION['error'];
+                            unset($_SESSION['error']);
+                        ?>
+                    </span>
+                    <?php } ?>
                 </form>
                 <div class="regester__body-container">
                     <div class="register__body-container-sub"></div>
