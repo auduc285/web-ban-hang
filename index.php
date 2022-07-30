@@ -57,13 +57,13 @@
                                 <div class="header__notify-header">
                                     <h3>Thông báo mới nhận</h3>
                                 </div>
+                                <ul class="header__notify-list">
                                 <?php
                                     if(isset($_SESSION['ID'])) {
                                         include './admin/connect.php';
                                         $sql = "select * from bell";
                                         $result = mysqli_query($connect, $sql);
                                 ?>
-                                <ul class="header__notify-list">
                                     <?php foreach($result as $each): ?>
                                     <li class="header__notify-item">
                                         <a href="" class="header__notify-link">
@@ -74,12 +74,12 @@
                                         </a>
                                     </li>
                                     <?php endforeach ?>
-                                </ul>
-                                <?php }else { ?>
-                                <span>
-                                    Đăng nhập để xem thông báo.
-                                </span>
+                                    <?php }else { ?>
+                                    <li class="header__notify-item" style="color:black">
+                                        Đăng nhập để xem thông báo.
+                                    </li>
                                 <?php } ?>
+                                </ul>
                                 <div class="header__notify-footer">
                                     <a href="" class="header__notify-footer-btn">Xem tất cả</a>
                                 </div>
@@ -91,12 +91,18 @@
                                 Trợ giúp
                             </a>
                         </li>
+                        <?php if(isset($_SESSION['ID'])) { ?>
+                        <li class="header__nav-item">
+                            <a href="./myinfo.php" class="header__nav-item-link header__nav-item--bold header__nav-item--sepalate"><?php echo $_SESSION['name'] ?></a>
+                        </li>
+                        <?php }else { ?>
                         <li class="header__nav-item">
                             <a href="./register.php" class="header__nav-item-link header__nav-item--bold header__nav-item--sepalate">Đăng ký</a>
                         </li>
                         <li class="header__nav-item">
                             <a href="./login.php" class="header__nav-item-link header__nav-item--bold">Đăng nhập</a>
                         </li>
+                        <?php } ?>
                     </ul>
                 </nav>
                 <!-- End navbar -->
