@@ -13,7 +13,7 @@
         header('location:./index.php');
         exit;
     }else {
-        $each = mysqli_fetch_array($result);
+        $each1 = mysqli_fetch_array($result);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,7 +21,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $each['name'] ?></title>
+    <title><?php echo $each1['name'] ?></title>
     <link rel="stylesheet" href="./assets/css/base.css">
     <link rel="stylesheet" href="./assets/css/main.css">
     <link rel="stylesheet" href="./assets/font/fontawesome-free-6.1.1-web/css/all.css">
@@ -162,13 +162,13 @@
             <div class="product__body-top">
                 <!-- Ảnh minh họa -->
                 <div class="product__body-top-left">
-                    <img src="./admin/assets/img/<?php echo $each['photo'] ?>" alt="" class="product__body-top-img">
+                    <img src="./admin/assets/img/<?php echo $each1['photo'] ?>" alt="" class="product__body-top-img">
                 </div>
                 <!-- Thông tin máy -->
                 <form action="pay-now.php" method="post" class="product__body-top-right">
-                    <input type="hidden" name="ID" value="<?php echo $each['ID'] ?>" required>
-                    <h3 class="product__body-top-name"><?php echo $each['name'] ?></h3>
-                    <span class="product__body-top-price"><?php echo $each['price'] ?></span>
+                    <input type="hidden" name="ID" value="<?php echo $each1['ID'] ?>" required>
+                    <h3 class="product__body-top-name"><?php echo $each1['name'] ?></h3>
+                    <span class="product__body-top-price"><?php echo $each1['price'] ?></span>
                     <div class="product__body-top-insurance">
                         <span class="product__body-top-insurance-l">Bảo Hiểm</span>
                         <div class="product__body-top-insurance-r insurance">
@@ -229,7 +229,7 @@
             <div class="product__body-desc">
                 <div class="product__body-desc-top">MÔ TẢ SẢN PHẨM</div>
                 <div class="product__body-desc-container">
-                    <?php echo $each['review'] ?>
+                    <?php echo $each1['review'] ?>
                 </div>
             </div>
         </div>

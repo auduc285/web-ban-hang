@@ -13,6 +13,7 @@
     $num = mysqli_num_rows($result);
     if($num == 1) {
         $each = mysqli_fetch_array($result);
+        $_SESSION['email'] = $each['email'];
         $_SESSION['name'] = $each['name'];
         $_SESSION['ID'] = $each['ID'];
         header('location:./index.php');

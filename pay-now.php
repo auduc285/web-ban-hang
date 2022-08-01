@@ -1,3 +1,23 @@
+<?php
+    session_start();
+    if(isset($_SESSION['ID'])) {
+        if(empty($_POST['ID']) || empty($_POST['quantity'])) {
+            header('location:./index.php');
+            exit;
+        }
+        $ID = $_POST['ID'];
+        $quantity = $_POST['quantity'];
+        require './admin/connect.php';
+        $sql = "select * from product where ID = '$ID'";
+        $result = mysqli_query($connect, $sql);
+        $num = mysqli_num_rows($result);
+        if($num != 1) {
+            header('location:./index.php');
+            exit;
+        }
+        $each = mysqli_fetch_array($result);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,40 +72,24 @@
                                 <div class="header__notify-header">
                                     <h3>Thông báo mới nhận</h3>
                                 </div>
+                                <?php
+                                    $sql = "select * from bell";
+                                    $result = mysqli_query($connect, $sql);
+                                ?>
                                 <ul class="header__notify-list">
+                                    <?php foreach($result as $each1): ?>
                                     <li class="header__notify-item">
                                         <a href="" class="header__notify-link">
-                                            <img src="./assets/img/slae1k.png" alt="" class="header__notify-img">
+                                            <img src="./admin/assets/img/<?php echo $each1['photo'] ?>" alt="" class="header__notify-img">
                                             <div class="header__notify-body">
-                                                <span class="header__notify-name">DEAL TỪ 1K LẠI CÒN FREESHIP</span>
-                                                <span class="header__notify-desc">
+                                                <span class="header__notify-name"><?php echo $each1['content'] ?></span>
+                                                <!-- <span class="header__notify-desc">
                                                     Dây cuốn sạc, miếng dán trắng
-                                                </span>
+                                                </span> -->
                                             </div>
                                         </a>
                                     </li>
-                                    <li class="header__notify-item header__notify-item--viewed">
-                                        <a href="" class="header__notify-link">
-                                            <img src="./assets/img/slae1k.png" alt="" class="header__notify-img">
-                                            <div class="header__notify-body">
-                                                <span class="header__notify-name">DEAL TỪ 1K LẠI CÒN FREESHIP</span>
-                                                <span class="header__notify-desc">
-                                                    Dây cuốn sạc, miếng dán trắng
-                                                </span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li class="header__notify-item">
-                                        <a href="" class="header__notify-link">
-                                            <img src="./assets/img/slae1k.png" alt="" class="header__notify-img">
-                                            <div class="header__notify-body">
-                                                <span class="header__notify-name">DEAL TỪ 1K LẠI CÒN FREESHIP</span>
-                                                <span class="header__notify-desc">
-                                                    Dây cuốn sạc, miếng dán trắng
-                                                </span>
-                                            </div>
-                                        </a>
-                                    </li>
+                                    <?php endforeach ?>
                                 </ul>
                                 <div class="header__notify-footer">
                                     <a href="" class="header__notify-footer-btn">Xem tất cả</a>
@@ -96,7 +100,7 @@
                     <li class="cart-header-item">
                         <a href="" class="cart-header-item-link">
                             <i class="cart-header-item-icon fa-solid fa-user"></i>
-                            Âu Quang Đức
+                            <?php echo $_SESSION['name'] ?>
                         </a>
                     </li>
                 </ul>
@@ -105,7 +109,7 @@
             <!-- Begin cart header body -->
             <div class="cart__header-body">
                 <div class="cart__header-body-logo">
-                    <a href="./index.html" class="cart__header-body-link">
+                    <a href="./index.php" class="cart__header-body-link">
                         TOTRINH
                     </a>
                 </div>
@@ -115,7 +119,7 @@
             </div>
             <!-- End cart header body -->
         </div>
-        <div class="pay__body">
+        <form action="process_bill.php" method="post" class="pay__body" enctype="multipart/form-data">
             <!-- Begin pay body adress -->
             <div class="pay__body-adress">
                 <!-- Begin pay body adress top -->
@@ -125,15 +129,15 @@
                 </div>
                 <!-- End pay body adress top -->
                 <!-- Begin pay body adress container -->
-                <form action="" class="pay__body-adress-container">
+                <div class="pay__body-adress-container">
                     <div class="pay__body-adress-info">
-                        <input type="text" class="pay__body-adress-name" placeholder="Họ Và Tên Người Nhận">
-                        <input type="number" class="pay__body-adress-name" placeholder="Số Điện Thoại Người Nhận">
+                        <input type="text" name="name_in" class="pay__body-adress-name" placeholder="Họ Và Tên Người Nhận" required>
+                        <input type="number" name="phone_in" class="pay__body-adress-name" placeholder="Số Điện Thoại Người Nhận" required>
                     </div>
                     <div class="pay__body-adress-home">
-                        <textarea class="pay__body-adress-yourhome" name="" id="" cols="100%" rows="3" placeholder="Số nhà, xóm, phường, quận, thành phố"></textarea>
+                        <textarea class="pay__body-adress-yourhome" name="adress_in" id="" cols="100%" rows="3" placeholder="Số nhà, xóm, phường, quận, thành phố" required></textarea>
                     </div>
-                </form>
+                </div>
                 <!-- Begin pay body adress container -->
             </div>
             <!-- End pay body adress -->
@@ -147,21 +151,13 @@
                 </div>
                 <div class="pay__body-items">
                     <div class="pay__body-items-product pay__body-items--fist pay__body-items--con">
-                        <img src="./assets/img/samsung.jpg" alt="" class="pay__body-items-img">
-                        <span class="pay__body-items-name">Điện thoại Samsung Galaxy M12 (3GB/32GB) - Hàng Chính Hãng</span>
+                        <img src="./admin/assets/img/<?php echo $each['photo'] ?>" alt="" class="pay__body-items-img">
+                        <span class="pay__body-items-name"><?php echo $each['name'] ?></span>
                     </div>
-                    <div class="pay__body-items-info pay__body-items--sec">2.890.000</div>
-                    <div class="pay__body-items-info pay__body-items--sec">1</div>
-                    <div class="pay__body-items-info pay__body-items--sec">2.890.000</div>
-                </div>
-                <div class="pay__body-items">
-                    <div class="pay__body-items-product pay__body-items--fist pay__body-items--con">
-                        <img src="./assets/img/samsung.jpg" alt="" class="pay__body-items-img">
-                        <span class="pay__body-items-name">Điện thoại Samsung Galaxy M12 (3GB/32GB) - Hàng Chính Hãng</span>
-                    </div>
-                    <div class="pay__body-items-info pay__body-items--sec">2.890.000</div>
-                    <div class="pay__body-items-info pay__body-items--sec">1</div>
-                    <div class="pay__body-items-info pay__body-items--sec">2.890.000</div>
+                    <input type="hidden" name="name" value="<?php echo $each['name'] ?>[<?php echo $quantity ?>]" required>
+                    <div class="pay__body-items-info pay__body-items--sec"><?php echo $each['price'] ?></div>
+                    <div class="pay__body-items-info pay__body-items--sec"><?php echo $quantity ?></div>
+                    <div class="pay__body-items-info pay__body-items--sec"><?php echo $each['price']*$quantity ?></div>
                 </div>
             </div>
             <!-- End pay body list -->
@@ -179,8 +175,8 @@
                         <span class="pay__body-bank-name">Họ Và Tên: AU QUANG DUC</span>
                     </div>
                     <div class="pay__body-end-bank-img">
-                        <span class="pay__body-bank-title">Sau khi chuyển khoản bạn vui lòng chụp màn hình rồi up ảnh lên tại đây</span>
-                        <input type="file" class="pay__body-bank-img">
+                        <span class="pay__body-bank-title">Sau khi chuyển khoản bạn vui lòng chụp màn hình rồi up ảnh lên tại đây, nếu không có file ảnh thì hệ thống sẽ tự động chọn phương thức thanh toán khi nhận hàng</span>
+                        <input type="file" name="file_pay" class="pay__body-bank-img">
                     </div>
                 </div>
                 <div class="pay__body-end-adress">
@@ -199,10 +195,11 @@
                         <span class="pay__body-end-item-name">Tổng thanh toán:</span>
                     </div>
                     <div class="pay__body-end-item">
-                        <span class="pay__body-end-item-name">5.780.000</span>
+                        <span class="pay__body-end-item-name"><?php echo $each['price']*$quantity ?></span>
                         <span class="pay__body-end-item-name">1.000</span>
                         <span class="pay__body-end-item-name">30.000</span>
-                        <span class="pay__body-end-item-name pay__body-end-item--total">5.812.000</span>
+                        <span class="pay__body-end-item-name pay__body-end-item--total"><?php echo $each['price']*$quantity + 31000 ?></span>
+                        <input type="hidden" name="total_money" value="<?php echo $each['price']*$quantity + 31000 ?>" required>
                     </div>
                 </div>
                 <div class="pay__body-end-button">
@@ -216,7 +213,7 @@
                     <button class="btn btn--primary">Đặt Hàng</button>
                 </div>
             </div>
-        </div>
+        </form>
         <!-- Begin footer -->
         <div class="footer">
             <!-- Begin footer nav -->
@@ -291,3 +288,9 @@
     }
 </script>
 </html>
+<?php
+    }else {
+        header('location:./login.php');
+        exit;
+    }
+?>
