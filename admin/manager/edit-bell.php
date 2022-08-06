@@ -103,7 +103,7 @@
                 }
             ?>
             <div class="add-staff_body-a">
-                <form action="process_edit_bell.php" method="post" class="add-staff__body">
+                <form action="process_edit_bell.php" method="post" class="add-staff__body" enctype="multipart/form-data">
                     <h3 class="add-staff__body-title">Sửa Thông Báo</h3>  
                     <input type="hidden" name="ID" value="<?php echo $each['ID'] ?>" id="" required>
                     <div class="add-staff__body-item">

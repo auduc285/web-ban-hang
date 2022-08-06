@@ -1,3 +1,7 @@
+<?php
+    session_start();
+    if(isset($_SESSION['ID'])) {
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,55 +20,55 @@
         <!-- Nav bar -->
         <ul class="manager__nav">
             <li class="manager__nav-item manager__nav-item-header">
-                <a href="./my-info.html" class="manager__nav-item-link manager__nav-item--img">
-                    <img src="../assets/img/84332788_192794961797534_7049027482996965376_n.jpg" alt="" class="manager__nav-item-img">
-                    <span class="manager__nav-item-user">Xin chào, Âu Quang Đức</span>
+                <a href="./my-info.php" class="manager__nav-item-link manager__nav-item--img">
+                    <img src="../assets/img/<?php echo $_SESSION['photo'] ?>" alt="" class="manager__nav-item-img">
+                    <span class="manager__nav-item-user">Xin chào, <?php echo $_SESSION['name'] ?></span>
                 </a>
             </li>
             <li class="manager__nav-item">
-                <a href="./index.html" class="manager__nav-item-link">
+                <a href="./index.php" class="manager__nav-item-link">
                     <i class="manager__nav-item--icon fa-solid fa-desktop"></i>
                     <span class="manager__nav-item-text">Tổng Quan</span>
                 </a>
             </li>
             <li class="manager__nav-item">
-                <a href="./staff.html" class="manager__nav-item-link">
+                <a href="./staff.php" class="manager__nav-item-link">
                     <i class="manager__nav-item--icon fa-solid fa-users"></i>
                     <span class="manager__nav-item-text">Quản Lý Nhân Viên</span>
                 </a>
             </li>
             <li class="manager__nav-item">
-                <a href="./customer.html" class="manager__nav-item-link">
+                <a href="./customer.php" class="manager__nav-item-link">
                     <i class="manager__nav-item--icon fa-solid fa-user"></i>
                     <span class="manager__nav-item-text">Quản Lý Khách Hàng</span>
                 </a>
             </li>
             <li class="manager__nav-item">
-                <a href="./manufacturer.html" class="manager__nav-item-link">
+                <a href="./manufacturer.php" class="manager__nav-item-link">
                     <i class="manager__nav-item--icon fa-solid fa-industry"></i>
                     <span class="manager__nav-item-text">Quản Lý Nhà Sản Xuất</span>
                 </a>
             </li>
             <li class="manager__nav-item">
-                <a href="./product.html" class="manager__nav-item-link">
+                <a href="./product.php" class="manager__nav-item-link">
                     <i class="manager__nav-item--icon fa-solid fa-mobile"></i>
                     <span class="manager__nav-item-text">Quản Lý Sản Phẩm</span>
                 </a>
             </li>
             <li class="manager__nav-item manager__nav-item--now">
-                <a href="./bill.html" class="manager__nav-item-link manager__nav-item--now">
+                <a href="./bill.php" class="manager__nav-item-link manager__nav-item--now">
                     <i class="manager__nav-item--icon fa-solid fa-money-bill"></i>
                     <span class="manager__nav-item-text">Quản Lý Hóa Đơn</span>
                 </a>
             </li>
             <li class="manager__nav-item">
-                <a href="./bell.html" class="manager__nav-item-link">
+                <a href="./bell.php" class="manager__nav-item-link">
                     <i class="manager__nav-item--icon fa-solid fa-bell"></i>
                     <span class="manager__nav-item-text">Quản Lý Thông Báo</span>
                 </a>
             </li>
             <li class="manager__nav-item">
-                <a href="./slide.html" class="manager__nav-item-link">
+                <a href="./slide.php" class="manager__nav-item-link">
                     <i class="manager__nav-item--icon fa-solid fa-pager"></i>
                     <span class="manager__nav-item-text">Slider</span>
                 </a>
@@ -77,52 +81,89 @@
                 <a href="" class="manager__body-header-link">
                     <div class="manager__body-header-logo">TOTRINH</div>
                 </a>
-                <a href="./my-info.html" class="manager__body-header-link">
+                <a href="./my-info.php" class="manager__body-header-link">
                     <i class="manager__body-header-icon fa-solid fa-user"></i>
                 </a>
             </div>
             <div class="add-staff_body-a">
-                <form action="" class="add-staff__body">
+                <?php
+                    if(empty($_GET['id'])) {
+                        header('location:../index.php');
+                        exit;
+                    }
+                    $ID = $_GET['id'];
+                    require '../connect.php';
+                    $sql = "select * from bill where ID = '$ID'";
+                    $result = mysqli_query($connect, $sql);
+                    $num = mysqli_num_rows($result);
+                    if($num == 0) {
+                        header('location:../index.php');
+                        exit;
+                    }else {
+                        $each = mysqli_fetch_array($result);
+                ?>
+                <form action="process_edit_bill.php" method="post" class="add-staff__body" enctype="multipart/form-data">
                     <h3 class="add-staff__body-title">Sửa Hóa Đơn</h3>
+                    <input type="hidden" name="ID" value="<?php echo $each['ID'] ?>" required>
                     <div class="add-staff__body-item">
                         <span class="add-staff__body-item-text">Sản Phẩm</span>
-                        <input type="text" value="Điện thoại Samsung Galaxy M12 (3GB/32GB) - Hàng Chính Hãng" placeholder="Sản Phẩm" class="add-staff__body-item-inp" required>
+                        <input type="text" name="name" value="<?php echo $each['name'] ?>" placeholder="Sản Phẩm" class="add-staff__body-item-inp" required>
                     </div>
                     <div class="add-staff__body-item">
                         <span class="add-staff__body-item-text">Tổng Tiền</span>
-                        <input type="number" value="2890000" placeholder="Tổng Tiền" class="add-staff__body-item-inp" required>
+                        <input type="number" name="total_money" value="<?php echo $each['total_money'] ?>" placeholder="Tổng Tiền" class="add-staff__body-item-inp" required>
                     </div>
                     <div class="add-staff__body-item">
                         <span class="add-staff__body-item-text">Họ Tên Người Nhận</span>
-                        <input type="text" value="Âu Quang Đức" placeholder="Họ Tên Người Nhận" class="add-staff__body-item-inp" required>
+                        <input type="text" name="name_in" value="<?php echo $each['name_in'] ?>" placeholder="Họ Tên Người Nhận" class="add-staff__body-item-inp" required>
                     </div>
                     <div class="add-staff__body-item">
                         <span class="add-staff__body-item-text">Số Điện Thoại Người Nhận</span>
-                        <input type="number" value="0379521705" placeholder="Số Điện Thoại Người Nhận" class="add-staff__body-item-inp" required>
+                        <input type="number" name="phone_in" value="<?php echo $each['phone_in'] ?>" placeholder="Số Điện Thoại Người Nhận" class="add-staff__body-item-inp" required>
+                    </div>
+                    <div class="add-staff__body-item">
+                        <span class="add-staff__body-item-text">Địa Chỉ Người Nhận</span>
+                        <input type="text" name="adress_in" value="<?php echo $each['adress_in'] ?>" placeholder="Địa Chỉ Người Nhận" class="add-staff__body-item-inp" required>
                     </div>
                     <div class="add-staff__body-item">
                         <span class="add-staff__body-item-text">Hình Thức Thanh Toán</span>
-                        <select name="" id="">
-                            <option value="">Chuyển Khoản</option>
-                            <option value="">Thanh Toán Khi Nhận Hàng</option>
+                        <select name="status" id="">
+                            <option value="Thanh Toán Khi Nhận Hàng">Thanh Toán Khi Nhận Hàng</option>
+                            <option value="Chuyển Khoản">Chuyển Khoản</option>
                         </select>
                     </div>
                     <div class="add-staff__body-item">
                         <span class="add-staff__body-item-text">Ảnh Cũ</span>
-                        <img src="" alt="" class="add-staff__body-img-old">
+                        <img src="../assets/img/<?php echo $each['photo'] ?>" alt="" class="add-staff__body-img-old">
+                        <input type="hidden" name="old_photo" value="<?php echo $each['photo'] ?>" required>
                     </div>  
                     <div class="add-staff__body-item">
                         <span class="add-staff__body-item-text">Sửa Ảnh</span>
-                        <input type="file" class="add-staff__body-item-inp" required>
+                        <input type="file" name="new_photo" class="add-staff__body-item-inp" required>
                     </div>
                     <div class="add-staff__body-item">
                         <span class="add-staff__body-item-text">Trạng Thái</span>
-                        <input type="text" value="Đang Giao" placeholder="Trạng Thái" class="add-staff__body-item-inp" required>
+                        <input type="text" value="<?php echo $a = ($each['now'] == 0) ? "Chờ xác nhận" : "Đang giao" ?>" placeholder="Trạng Thái" class="add-staff__body-item-inp" required>
                     </div>
                     <button class="btn">Sửa</button>
+                    <?php if(isset($_SESSION['error'])) { ?>
+                    <span style="color:red;font-size:1.4rem">
+                        <?php
+                            echo $_SESSION['error'];
+                            unset($_SESSION['error']);
+                        ?>
+                    </span>
+                    <?php } ?>
                 </form>
+                <?php } ?>
             </div>
         </div>
     </div>
 </body>
 </html>
+<?php
+    }else {
+        header('location:../index.php');
+        exit;
+    }
+?>
